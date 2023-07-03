@@ -23,7 +23,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown("w"))
         {
-            WalkSound.Play();
+            WalkSound.enabled = true;
+        }
+
+        if (Input.GetKeyUp("w"))
+        {
+            WalkSound.enabled = false;
         }
 
         if (IsGrounded && Velocity.y < 0)

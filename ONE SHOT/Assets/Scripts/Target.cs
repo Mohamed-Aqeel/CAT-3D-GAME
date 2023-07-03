@@ -8,6 +8,8 @@ public class Target : MonoBehaviour
 {
     public float Health = 100;
     public Animator animator;
+    [SerializeField] AudioSource HitSound;
+    [SerializeField] AudioSource DeathSound;
 
     public void TakeDamage(int damageAmount)
     {
@@ -15,6 +17,7 @@ public class Target : MonoBehaviour
 
         if (Health <= 0)
         {
+            DeathSound.Play();
             animator.SetTrigger("Die");
             GetComponent<Collider>().enabled = false;
             Invoke("CompleteLevel",10);
@@ -23,6 +26,7 @@ public class Target : MonoBehaviour
         else
         {
             animator.SetTrigger("Damage");
+            HitSound.Play();
         }
     }
 
