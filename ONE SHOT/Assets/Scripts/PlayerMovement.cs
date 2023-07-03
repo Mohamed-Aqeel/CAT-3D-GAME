@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    [SerializeField] AudioSource WalkSound;
 
     public Vector3 Velocity;
     bool IsGrounded;
@@ -19,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (Input.GetKeyDown("w"))
+        {
+            WalkSound.Play();
+        }
 
         if (IsGrounded && Velocity.y < 0)
         {

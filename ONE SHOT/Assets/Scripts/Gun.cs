@@ -2,19 +2,21 @@
 
 public class Gun : MonoBehaviour
 {
-    public float Damage = 10f;
+    public int Damage = 50;
     public float Range = 100f;
 
     public ParticleSystem muzzleFlash;
     public float FireRate = 15f;
     public Camera fpsCam;
+    [SerializeField] AudioSource GunSound;
 
-    private float nextTimeToFire = 0f;
+    private float nextTimeToFire = 2f;
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
         {
+            GunSound.Play();
             nextTimeToFire = Time.time + 1f / FireRate;
             Shoot();
         }

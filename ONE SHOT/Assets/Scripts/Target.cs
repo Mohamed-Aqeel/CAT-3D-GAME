@@ -1,23 +1,39 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Target : MonoBehaviour
 {
-    public float Health = 50f;
+    public float Health = 100;
+    public Animator animator;
 
-    public void TakeDamage(float Amount)
+    public void TakeDamage(int damageAmount)
     {
-        Health -= Amount;
-        if (Health <= 0f)
+        Health -= damageAmount;
+
+        if (Health <= 0)
         {
-            Die();
+            animator.SetTrigger("Die");
+            GetComponent<Collider>().enabled = false;
+            Invoke("CompleteLevel",10);
+
+        }
+        else
+        {
+            animator.SetTrigger("Damage");
         }
     }
 
-    public void Die()
+    internal void TakeDamage(float damage)
     {
-        Destroy(gameObject);
+        throw new NotImplementedException();
     }
 
+    private void CompleteLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }
+
